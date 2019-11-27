@@ -29,6 +29,7 @@ function callback(){
 		decimalFieldView.val(baseNumber.conversions[10]);
 		hexaFieldView.val(baseNumber.conversions[16]);
 	}else{
+		$(this).focus();
 		errorMessage.show();
 	}
 }
