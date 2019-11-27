@@ -2,69 +2,35 @@ var binaryFieldView = $("#binary-input-field")
 var octalFieldView = $("#octal-input-field")
 var decimalFieldView = $("#decimal-input-field")
 var hexaFieldView = $("#hexa-input-field")
+var errorMessage = $("#error-message");
 
 $(function(){
-	binaryFieldView.change(binaryFieldListener);
-	octalFieldView.change(octalFieldListener);
-	decimalFieldView.change(decimalFieldListener);
-	hexaFieldView.change(hexaFieldListener);
+	binaryFieldView.focusout(callback);
+	octalFieldView.focusout(callback);
+	decimalFieldView.focusout(callback);
+	hexaFieldView.focusout(callback);
 })
 
-function binaryFieldListener(){
-	if(validateBinaryNumber()){
-
-	}else{
-		alert("invalid binary number");
-		binaryFieldView.val("");
-		binaryFieldView.focus();
+function callback(){
+	var baseNumber;
+	if($(this).attr('id') == "binary-input-field"){
+		baseNumber = new NumericBase($(this).val(), 2);
+	}else if($(this).attr('id') == "octal-input-field"){
+		baseNumber = new NumericBase($(this).val(), 8);
+	}else if($(this).attr('id') == "decimal-input-field"){
+		baseNumber = new NumericBase($(this).val(), 10);
+	}else {
+		baseNumber = new NumericBase($(this).val(), 16);
 	}
-}
-
-function octalFieldListener(){
-	if(validateOctalNumber()){
-
+	if(baseNumber.build()){
+		errorMessage.hide();
+		binaryFieldView.val(baseNumber.conversions[2]);
+		octalFieldView.val(baseNumber.conversions[8]);
+		decimalFieldView.val(baseNumber.conversions[10]);
+		hexaFieldView.val(baseNumber.conversions[16]);
 	}else{
-		alert("invalid octal number");
-		octalFieldView.val("");
-		octalFieldView.focus()
+		errorMessage.show();
 	}
-}
-
-function decimalFieldListener(){
-	if(validateDecimalNumber()){
-
-	}else{
-		alert("invalid decimal number");
-		decimalFieldView.val("");
-		decimalFieldView.focus();
-	}
-}
-
-function hexaFieldListener(){
-	if(validateHexaNumber()){
-
-	}else{
-		alert("invalid hexa number");
-		hexaFieldView.val("");
-		hexaFieldView.focus();
-	}
-}
-
-
-function validateBinaryNumber(){
-	return binaryFieldView.val().length == 0 || binaryFieldView.val().match(/^[0-1]{1,}$/g)
-}
-
-function validateOctalNumber(){
-	return octalFieldView.val().length == 0 || octalFieldView.val().match(/^[0-7]{1,}$/g)
-}
-
-function validateDecimalNumber(){
-	return decimalFieldView.val().length == 0 || decimalFieldView.val().match(/^[0-9]{1,}$/g)
-}
-
-function validateHexaNumber(){
-	return hexaFieldView.val().length == 0  || hexaFieldView.val().match(/^[0-9A-F]{1,}$/ig)
 }
 
 class NumericBase{
@@ -90,10 +56,41 @@ class NumericBase{
 				}
 				this.conversions[10] = decimal;
 			}
+			if(this.conversions[2] == undefined){
+				this.conversions[2] = this.convertTo(2);
+			}
+			if(this.conversions[8] == undefined){
+				this.conversions[8] = this.convertTo(8);
+			}
+			if(this.conversions[16] == undefined){
+				this.conversions[16] = this.convertTo(16);
+			}	
 			return true;
 		}else{
 			return false;
 		}
+	}
+
+	convertTo(base){
+		var num = parseInt(this.conversions[10]);
+		var result = "";
+
+		while(num != 0) {
+			result = this.getNumberChar((num%base)) + result;
+			num = Math.floor(num/base);
+		}
+		return result;
+	}
+
+	getNumberChar(n) {
+		var c;
+		if(n >= 0 && n < 10) {
+			c = String.fromCharCode(n + 48);
+		}else {
+			n -= 10;
+			c = String.fromCharCode(n + 65);
+		}
+		return c;
 	}
 		
 	getRegexPattern(base){
