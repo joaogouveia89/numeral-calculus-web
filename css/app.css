@@ -16,6 +16,10 @@
 	justify-content: center;
 }
 
+.padding-top-15{
+	padding-top: 15px;
+}
+
 body{
 	background-color: #E8E8E8;
 }

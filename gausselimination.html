@@ -18,8 +18,34 @@
 <div id="nav-placeholder">
 </div>
 <div class="jumbotron">
-    <div class="container">
+    <div class="container-fluid container-specs">
+        <h3>Fill the linear system</h3>
+        <div class="row">
+            <div class="col-12">
+                <input type="text" name="linear-system" style="width: 100%" placeholder="{x+4y-6z=0;5x+2y-4z=6;-2x+y+9z=100}">
+            </div>
+        </div>
+        <div class="row padding-top-15">
+            <div class="col-12">
+                <a href="#" id="help-button" class="btn btn-info btn-sm" role="button" aria-pressed="true">Help</a>
+                <div id="help-container" class="jumbotron-fluid" style="background-color: #fcfcfc; margin-top: 10px; padding: 20px; display: none;">
+                    <h4>Help</h4>
+                    <ul>
+                        <li>Your linear system must starts with open curly braces'{' and finishes with closing curly braces '}'</li>
+                        <li>Separate each equation with semi collon character ';'</li>
+                        <li>Example: for this linear system <br/><br/>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;&\\2x&plus;3y-4z&space;=&space;2&space;&\\x-7y-3z&space;=&space;10&space;&\\9x&plus;y-z&space;=&space;3&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;&\\2x&plus;3y-4z&space;=&space;2&space;&\\x-7y-3z&space;=&space;10&space;&\\9x&plus;y-z&space;=&space;3&space;\end{align*}" title="\begin{align*} &\\2x+3y-4z = 2 &\\x-7y-3z = 10 &\\9x+y-z = 3 \end{align*}" /></a><br/><br/>
 
+                            the input must be <xmp>{2x+3y-4z=2;x-7y-3z=10;9x+y-z=3}</xmp>
+                        </li>
+                </div>
+            </div>
+        </div>
+        <div class="row padding-top-15">
+            <div class="col-12 text-center">
+                <a href="#" id="helper" class="btn btn-primary btn-lh" role="button" aria-pressed="true">Calculate</a>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Optional JavaScript -->
@@ -29,6 +55,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 $(function(){
+    $("#help-button").click(function(){
+        if($("#help-container").is(":visible")){
+            $("#help-container").hide(500);
+        }else{
+            $("#help-container").show(500);
+        }
+    })
   $("#nav-placeholder").load("navbar.html", function(){
     $("#navItem-LinearSystem").addClass("active");
   });
