@@ -5,3 +5,17 @@
 .numeric-base-label{
 	padding-right: 50px;
 }
+
+.container-specs{
+	padding-top: 40px;
+}
+
+.numeric-base-inputs{
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+body{
+	background-color: #E8E8E8;
+}
