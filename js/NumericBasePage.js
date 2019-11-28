@@ -28,7 +28,7 @@ function callback(){
 		octalFieldView.val(baseNumber.conversions[8]);
 		decimalFieldView.val(baseNumber.conversions[10]);
 		hexaFieldView.val(baseNumber.conversions[16]);
-	}else{
+	}else if($(this).val().trim().length != 0){
 		$(this).focus();
 		errorMessage.show();
 	}
