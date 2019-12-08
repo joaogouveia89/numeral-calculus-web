@@ -22,7 +22,7 @@
         <h3>Fill the linear system</h3>
         <div class="row">
             <div class="col-12">
-                <input type="text" name="linear-system" style="width: 100%" placeholder="{x+4y-6z=0;5x+2y-4z=6;-2x+y+9z=100}">
+                <input type="text" id="linear-system" style="width: 100%" placeholder="{x+4y-6z=0;5x+2y-4z=6;-2x+y+9z=100}">
             </div>
         </div>
         <div class="row padding-top-15">
@@ -43,7 +43,7 @@
         </div>
         <div class="row padding-top-15">
             <div class="col-12 text-center">
-                <a href="#" id="helper" class="btn btn-primary btn-lh" role="button" aria-pressed="true">Calculate</a>
+                <a href="#" id="calculate-trigger" class="btn btn-primary btn-lh" role="button" aria-pressed="true">Calculate</a>
             </div>
         </div>
     </div>
@@ -53,6 +53,8 @@
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/LinearSystem.js"></script>
+<script src="js/gausselimination.js"></script>
 <script>
 $(function(){
     $("#help-button").click(function(){
@@ -63,7 +65,8 @@ $(function(){
         }
     })
   $("#nav-placeholder").load("navbar.html", function(){
-    $("#navItem-LinearSystem").addClass("active");
+    $("#navItemDropDown-LinearSystem").addClass("active");
+    $("#navItem-GaussElimination").addClass("active");
   });
 });
 </script>
