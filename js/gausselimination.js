@@ -10,6 +10,9 @@ function calculateClickListener(){
 	if(expression.match(linearSystemInputRegexPattern)){
 		alert("matches");
 	}else{
-		alert("no matches");
+		inputField.addClass("form-control is-invalid");
+		inputField.on('keydown', function(){
+			inputField.removeClass();
+		})
 	}
 }
