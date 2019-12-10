@@ -8,7 +8,8 @@ $(function(){
 function calculateClickListener(){
 	var expression = inputField.val();
 	if(expression.match(linearSystemInputRegexPattern)){
-		alert("matches");
+		var equations = getEquations(expression);
+		var factors = getEquationFactors(equations[0]);
 	}else{
 		inputField.addClass("form-control is-invalid");
 		inputField.on('keydown', function(){
