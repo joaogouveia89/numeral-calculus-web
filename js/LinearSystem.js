@@ -26,13 +26,15 @@ class LinearSystem{
 	}
 
 	factors = [];
+	results = [];
 
 	buildLinearSystem = function(){
 		var input = this.unformatEquation.replace(/\s/g, "");
 		const parsingStates = {
 			SIGNAL: 0,
 			MULTIPLIER: 1,
-			VARIABLE: 2
+			VARIABLE: 2,
+			RESULT: 3
 		}
 		//for a valid linear system, the equations number must be the same as the variables array length
 		var equationsNumber = 0;
@@ -79,22 +81,13 @@ class LinearSystem{
 					parsingState = parsingStates.VARIABLE;;
 				}
 			}else if(parsingState == parsingStates.VARIABLE){
-				if(input.charAt(n) != "+" && input.charAt(n) != "-" && input.charAt(n) != ";"){
+				if(input.charAt(n) != "+" && input.charAt(n) != "-" && input.charAt(n) != "="){
 					if(initPosition == -1){
 						initPosition = n;
 					}else{
 						finalPosition = n;
 					}
 					n++;
-					if(n == input.length){
-						if(finalPosition == -1){
-							factor.variableName = input.charAt(initPosition);
-						}else{
-							factor.variableName = input.substring(initPosition, finalPosition + 1);
-						}
-						this.factors.push(factor);
-						break;
-					}
 				}else{
 					if(finalPosition == -1){
 						factor.variableName = input.charAt(initPosition);
@@ -103,12 +96,42 @@ class LinearSystem{
 					}
 					initPosition = -1;
 					finalPosition = -1;
-					if(input.charAt(n) == ";"){
+					if(input.charAt(n) == "="){
+						parsingState = parsingStates.RESULT;
 						n++;
+					}else{
+						parsingState = parsingStates.SIGNAL;
 					}
-					parsingState = parsingStates.SIGNAL;
 					this.factors.push(factor);
 					factor = {};
+				}
+			}else if(parsingState = parsingStates.RESULT){
+				if(!Object.is(parseInt(input.charAt(n)), NaN)){
+					if(initPosition == -1){
+						initPosition = n;
+					}else{
+						finalPosition = n;
+					}
+					n++;
+					if(n == input.length){
+						equationsNumber++;
+						if(finalPosition == -1){
+							this.results.push(parseInt(input.charAt(initPosition)));
+						}else{
+							this.results.push(parseInt(input.substring(initPosition, finalPosition + 1)));
+						}
+					}
+				}else{
+					if(finalPosition == -1){
+						this.results.push(parseInt(input.charAt(initPosition)));
+					}else{
+						this.results.push(parseInt(input.substring(initPosition, finalPosition + 1)));
+					}
+					initPosition = -1;
+					finalPosition = -1;
+					equationsNumber++;
+					parsingState = parsingStates.SIGNAL;
+					n++;
 				}
 			}
 		}
