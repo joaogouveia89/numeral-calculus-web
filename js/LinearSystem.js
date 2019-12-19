@@ -8,18 +8,6 @@ function getEquations(expression){
 	return removeBrackets(expression).split(';');
 }
 
-function getEquationFactors(equation){
-	factors = []
-	//getting plus factors
-	var temp = equation.split('+');
-	for(var n = 0; n < factors.length; n++){
-		if(temp[n].indexOf('-') === -1){
-			
-		}
-	}
-	return factors;
-}
-
 class LinearSystem{
 	constructor(unformatEquation){
 		this.unformatEquation = unformatEquation;
@@ -28,7 +16,23 @@ class LinearSystem{
 	factors = [];
 	results = [];
 
-	buildLinearSystem = function(){
+	getEquationCodeCogsCode = function(){
+		var str = "<a href='https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;&\\";
+
+		for(var n = 0; n < this.factors.length; n++){
+			if(this.factors[n].multiplier > 0){
+				str = str + "&plus;" + this.factors[n].multiplier;
+			}else{
+				str = str + this.factors[n].multiplier;
+			}
+			str = str + this.factors[n].variableName + "&space;"
+		}
+
+		str = str + "\end{align*}' title='eq'/></a>";
+		return str;
+	}
+
+	parseLinearSystem = function(){
 		var input = this.unformatEquation.replace(/\s/g, "");
 		const parsingStates = {
 			SIGNAL: 0,

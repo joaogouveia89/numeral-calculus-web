@@ -9,9 +9,9 @@ $(function(){
 function calculateClickListener(){
 	var expression = inputField.val();
 	if(expression.match(linearSystemInputRegexPattern)){
-		var equations = getEquations(expression);
-		equationUiFriendyDiv.html(getEquationCodeCogsCode(equations));
-		var factors = getEquationFactors(equations[0]);
+		var linearSystem = new LinearSystem(removeBrackets(inputField.val()));
+		linearSystem.parseLinearSystem();
+		equationUiFriendyDiv.html(linearSystem.getEquationCodeCogsCode());
 	}else{
 		inputField.addClass("form-control is-invalid");
 		inputField.on('keydown', function(){
