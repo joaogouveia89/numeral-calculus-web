@@ -17,18 +17,21 @@ class LinearSystem{
 	results = [];
 
 	getEquationCodeCogsCode = function(){
-		var str = "<a href='https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;&\\";
+		var link = "\\begin{align*}&space;&\\\\";
 
 		for(var n = 0; n < this.factors.length; n++){
-			if(this.factors[n].multiplier > 0){
-				str = str + "&plus;" + this.factors[n].multiplier;
+			if(n != 0 && this.factors[n].multiplier > 0){
+				link = link + "&plus;" + this.factors[n].multiplier;	
 			}else{
-				str = str + this.factors[n].multiplier;
+				link = link + this.factors[n].multiplier;
 			}
-			str = str + this.factors[n].variableName + "&space;"
+			link = link + this.factors[n].variableName + "&space;"
 		}
+		link = link + "\\end{align*}'";
 
-		str = str + "\end{align*}' title='eq'/></a>";
+		var fullLink = "'https://www.codecogs.com/eqnedit.php?latex=" + link;
+		var fullLinkImage = "'https://latex.codecogs.com/gif.latex?" + link;
+		var str = "<a href = " + fullLink + " target ='_blank'> <img src=" + fullLinkImage + " title='" + link +"'></a>"
 		return str;
 	}
 
