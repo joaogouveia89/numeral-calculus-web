@@ -22,7 +22,7 @@ class LinearSystem{
 		for(var n = 0; n < this.factors.length; n++){
 			console.log(this.factors[n].multiplier);
 			if(n != 0 && n  % this.results.length == 0){
-				link = link + "&space;=&space;" + this.results[(n/this.results.length - 1)] + "&\\\\";
+				link = link + "&space;=&space;" + this.results[(n/this.results.length - 1)] + "&\\\\" + this.factors[n].multiplier + "&space;";
 			}else if(n != 0 && this.factors[n].multiplier > 0){
 				link = link + "&plus;" + this.factors[n].multiplier;	
 			}else{
