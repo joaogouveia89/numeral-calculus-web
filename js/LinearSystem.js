@@ -20,14 +20,17 @@ class LinearSystem{
 		var link = "\\begin{align*}&space;&\\\\";
 
 		for(var n = 0; n < this.factors.length; n++){
-			if(n != 0 && this.factors[n].multiplier > 0){
+			console.log(this.factors[n].multiplier);
+			if(n != 0 && n  % this.results.length == 0){
+				link = link + "&space;=&space;" + this.results[(n/this.results.length - 1)] + "&\\\\";
+			}else if(n != 0 && this.factors[n].multiplier > 0){
 				link = link + "&plus;" + this.factors[n].multiplier;	
 			}else{
 				link = link + this.factors[n].multiplier;
 			}
 			link = link + this.factors[n].variableName + "&space;"
 		}
-		link = link + "\\end{align*}'";
+		link = link + "&space;=&space;" + this.results[this.results.length - 1] + "\\end{align*}'";
 
 		var fullLink = "'https://www.codecogs.com/eqnedit.php?latex=" + link;
 		var fullLinkImage = "'https://latex.codecogs.com/gif.latex?" + link;
