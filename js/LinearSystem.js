@@ -15,12 +15,12 @@ class LinearSystem{
 
 	factors = [];
 	results = [];
+	numberOfVariables = 0;
 
 	getEquationCodeCogsCode = function(){
 		var link = "\\begin{align*}&space;&\\\\";
 
 		for(var n = 0; n < this.factors.length; n++){
-			console.log(this.factors[n].multiplier);
 			if(n != 0 && n  % this.results.length == 0){
 				link = link + "&space;=&space;" + this.results[(n/this.results.length - 1)] + "&\\\\" + this.factors[n].multiplier + "&space;";
 			}else if(n != 0 && this.factors[n].multiplier > 0){
@@ -104,6 +104,9 @@ class LinearSystem{
 					}else{
 						factor.variableName = input.substring(initPosition, finalPosition + 1);
 					}
+					if(!this.doesVariableExists(factor.variableName)){
+						this.numberOfVariables++;
+					}
 					initPosition = -1;
 					finalPosition = -1;
 					if(input.charAt(n) == "="){
@@ -145,5 +148,20 @@ class LinearSystem{
 				}
 			}
 		}
+	}
+
+	doesVariableExists = function(name){
+		for(var n = 0; n < this.factors.length; n++){
+			if(this.factors[n].variableName === name){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	getOrganizedArray = function(){
+		var organized = [];
+		
+		console.log("arr = " + (this.factors.length + this.results.length));
 	}
 }
