@@ -15,6 +15,7 @@ function callback(){
 	var baseNumber;
 	if($(this).attr('id') == "binary-input-field"){
 		baseNumber = new NumericBase($(this).val(), 2);
+		callApi($(this).val(), 2);
 	}else if($(this).attr('id') == "octal-input-field"){
 		baseNumber = new NumericBase($(this).val(), 8);
 	}else if($(this).attr('id') == "decimal-input-field"){
@@ -32,6 +33,22 @@ function callback(){
 		$(this).focus();
 		errorMessage.show();
 	}
+}
+
+
+function callApi(value, base){
+	$.ajax('https://numeralcalculusapi.herokuapp.com/numericbase/' + value + "/" + base, 
+	{
+	    dataType: 'json', // type of response data
+	    timeout: 30000,     // timeout milliseconds
+	    crossDomain: true,
+	    success: function (data,status,xhr) {   // success callback function
+	        console.log(data)
+	    },
+	    error: function (jqXhr, textStatus, errorMessage) { // error callback 
+	        console.log(errorMessage)
+	    }
+	});
 }
 
 class NumericBase{
