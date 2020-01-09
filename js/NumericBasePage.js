@@ -42,10 +42,10 @@ function callApi(value, base){
 	    dataType: 'json', // type of response data
 	    timeout: 30000,     // timeout milliseconds
 	    crossDomain: true,
-	    success: function (data,status) {   // success callback function
+	    success: function (data) {   // success callback function
 	        console.log(data)
 	    },
-	    error: function (jqXhr, textStatus, errorMessage) { // error callback 
+	    error: function (xmlHttpRequest, textStatus, errorMessage) { // error callback 
 	        console.log(errorMessage)
 	    }
 	});
